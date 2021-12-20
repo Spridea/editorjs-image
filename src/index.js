@@ -339,8 +339,25 @@ export default class ImageTool {
   set image(file) {
     this._data.file = file || {};
 
-    if (file && file.url) {
-      this.ui.fillImage(file.url);
+    if (file) {
+      const width =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+
+      if (width < 576 && file.xs) {
+        this.ui.fillImage(file.xs);
+      } else if (width >= 576 && width < 768 && file.sm) {
+        this.ui.fillImage(file.sm);
+      } else if (width >= 768 && width < 992 && file.md) {
+        this.ui.fillImage(file.md);
+      } else if (width >= 992 && width < 1200 && file.md) {
+        this.ui.fillImage(file.lg);
+      } else if (width >= 1200 && file.xl) {
+        this.ui.fillImage(file.xl);
+      } else if (file.url) {
+        this.ui.fillImage(file.url);
+      }
     }
   }
 
